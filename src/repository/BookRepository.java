@@ -10,4 +10,8 @@ public class BookRepository {
         this.books = books;
 
     }
+
+    public void add(Book newBook) {books.add(newBook);}
+
+    public MyLinkedList<Book> findAll() {return books;}
 }

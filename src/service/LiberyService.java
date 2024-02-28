@@ -1,8 +1,10 @@
 package service;
 
+import model.Book;
 import repository.BookByReaderRepository;
 import repository.BookRepository;
 import repository.ReaderRepository;
+import util.MyLinkedList;
 
 public class LiberyService {
 
@@ -10,8 +12,15 @@ public class LiberyService {
     private BookRepository bookRepository;
     private ReaderRepository readerRepository;
 
-    public static void main(String[] args) {
-        System.out.println("Hallo");
+    public LiberyService(BookByReaderRepository bookByReaderRepository, BookRepository bookRepository, ReaderRepository readerRepository) {
+        this.bookByReaderRepository = bookByReaderRepository;
+        this.bookRepository = bookRepository;
+        this.readerRepository = readerRepository;
     }
+
+    public MyLinkedList<Book> getAllBooks() {
+        return bookRepository.findAll();
+    }
+
 
 }

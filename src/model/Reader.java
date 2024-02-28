@@ -24,4 +24,12 @@ public class Reader {
     public void setReaderName(String readerName) {
         this.readerName = readerName;
     }
+
+    @Override
+    public String toString() {
+        return "Reader{" +
+                "readerId=" + readerId +
+                ", readerName='" + readerName + '\'' +
+                '}';
+    }
 }

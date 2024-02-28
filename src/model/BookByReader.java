@@ -26,4 +26,12 @@ public class BookByReader {
     public void setReaderId(Integer readerId) {
         this.readerId = readerId;
     }
+
+    @Override
+    public String toString() {
+        return "BookByReader{" +
+                "bookId=" + bookId +
+                ", readerId=" + readerId +
+                '}';
+    }
 }
