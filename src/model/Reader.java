@@ -1,11 +1,13 @@
 package model;
 
 public class Reader {
+
+    private static int nextId = 1;
     private Integer readerId;
     private String readerName;
 
-    public Reader(Integer readerId, String readerName) {
-        this.readerId = readerId;
+    public Reader(String readerName) {
+        this.readerId = nextId++;
         this.readerName = readerName;
     }
 

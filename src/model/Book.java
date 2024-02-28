@@ -1,14 +1,28 @@
 package model;
 
 public class Book {
+
+    private static int nextId = 1;
+
     private Integer bookId;
     private String bookTitle;
     private Author bookAuthor;
+    private boolean bookStatus;
 
-    public Book(Integer bookId, String bookTitle) {
-        this.bookId = bookId;
+
+    public Book(String bookTitle) {
+        this.bookId = nextId++;
         this.bookTitle = bookTitle;
+        this.bookStatus = false;
         //this.bookAuthor = bookAuthor;
+    }
+
+    public boolean isBookStatus() {
+        return bookStatus;
+    }
+
+    public void setBookStatus(boolean bookStatus) {
+        this.bookStatus = bookStatus;
     }
 
     public Integer getBookId() {

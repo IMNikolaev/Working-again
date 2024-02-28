@@ -2,36 +2,28 @@ package model;
 
 public class BookByReader {
 
-    private Integer bookId;
-    private Integer readerId;
+    private Book book;
+    private Reader reader;
 
-
-    public BookByReader(Integer bookId, Integer readerId) {
-        this.bookId = bookId;
-        this.readerId = readerId;
+    public BookByReader(Book book, Reader reader) {
+        this.book = book;
+        this.reader = reader;
     }
 
-    public Integer getBookId() {
-        return bookId;
+    public Book getBook() {
+        return book;
     }
 
-    public void setBookId(Integer bookId) {
-        this.bookId = bookId;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
-    public Integer getReaderId() {
-        return readerId;
+    public Reader getReader() {
+        return reader;
     }
 
-    public void setReaderId(Integer readerId) {
-        this.readerId = readerId;
+    public void setReader(Reader reader) {
+        this.reader = reader;
     }
 
-    @Override
-    public String toString() {
-        return "BookByReader{" +
-                "bookId=" + bookId +
-                ", readerId=" + readerId +
-                '}';
-    }
 }
