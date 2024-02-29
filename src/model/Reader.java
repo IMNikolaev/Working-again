@@ -2,12 +2,12 @@ package model;
 
 public class Reader {
 
-    private static int nextId = 1;
+
     private Integer readerId;
     private String readerName;
 
-    public Reader(String readerName) {
-        this.readerId = nextId++;
+    public Reader(String readerName, int id) {
+        this.readerId = id;
         this.readerName = readerName;
     }
 
@@ -26,6 +26,8 @@ public class Reader {
     public void setReaderName(String readerName) {
         this.readerName = readerName;
     }
+
+
 
     @Override
     public String toString() {

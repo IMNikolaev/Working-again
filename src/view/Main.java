@@ -1,17 +1,10 @@
 package view;
 
-import model.Author;
-import model.Book;
-import model.BookByReader;
-import model.Reader;
-import repository.AuthorRepository;
-import repository.BookRepository;
-import repository.BookByReaderRepository;
-import repository.ReaderRepository;
+import model.*;
+import repository.*;
 import service.LiberyService;
-import util.MyArrayList;
+import service.UserService;
 import util.MyLinkedList;
-import util.MyList;
 
 public class Main {
 
@@ -170,11 +163,21 @@ public class Main {
         BookRepository bookRepository = new BookRepository(books);
         AuthorRepository authorRepository = new AuthorRepository(authors);
         ReaderRepository readerRepository = new ReaderRepository(readers);
+        MyLinkedList<User> users = new MyLinkedList<>();
+        UserRepository userRepository = new UserRepository(users);
         BookByReaderRepository booksByReaders = new BookByReaderRepository(new MyLinkedList<>());
         LiberyService libraryService = new LiberyService(bookRepository, readerRepository, booksByReaders);
+        UserService userService = new UserService(userRepository, libraryService);
+
+        libraryService.addBook("Book1");
+        libraryService.addBook("Book2");
+        libraryService.addBook("Book3");
+        libraryService.addBook("Book4");
 
 
 
-
+        Menu menu = new Menu(libraryService, userService);
+        menu.run();
+        //libraryService.getAllBooks();
     }
 }
