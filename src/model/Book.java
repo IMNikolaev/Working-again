@@ -14,7 +14,7 @@ public class Book {
         this.bookId = nextId++;
         this.bookTitle = bookTitle;
         this.bookStatus = false;
-        //this.bookAuthor = bookAuthor;
+        this.bookAuthor = null;
     }
 
     public boolean isBookStatus() {

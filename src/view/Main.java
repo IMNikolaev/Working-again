@@ -59,14 +59,21 @@ public class Main {
         booksByReaders.takeBook(book1,reader1);
 
 */
-        MyLinkedList<Book> books = new MyLinkedList<>();
+
+
+        // ВТОРЫЕ ТЕСТЫ
+
+
+      /*  MyLinkedList<Book> books = new MyLinkedList<>();
         MyLinkedList<Reader> readers = new MyLinkedList<>();
         MyLinkedList<BookByReader> bookByReader = new MyLinkedList<>();
         Book book = new Book("Горе от ума");
         Book book1 = new Book( "Преступление и наказание");
+        Book book2 = new Book( "Война и Мир");
 
         books.add(book);
         books.add(book1);
+        books.add(book2);
         BookRepository bookRepository = new BookRepository(books);
 
         Reader reader = new Reader("Vasya");
@@ -87,6 +94,62 @@ public class Main {
         liberyService.takeBook(book1,reader1);
         liberyService.readedBooks();
         liberyService.freeBooks();
+
+        System.out.println("Поиск по строке или подстроке");
+        System.out.println(bookRepository.findByTitle("Война"));*/
+
+        MyLinkedList<Book> books = new MyLinkedList<>();
+        MyLinkedList<Reader> readers = new MyLinkedList<>();
+
+        // Создаем несколько книг
+        Book book1 = new Book("Война и мир");
+        Book book2 = new Book("Преступление и наказание");
+        Book book3 = new Book("Горе от ума");
+
+        // Добавляем книги в список книг
+        books.add(book1);
+        books.add(book2);
+        books.add(book3);
+
+        // Создаем несколько читателей
+        Reader reader1 = new Reader("Иванов");
+        Reader reader2 = new Reader("Петров");
+        Reader reader3 = new Reader("Сидоров");
+
+        // Добавляем читателей в список читателей
+        readers.add(reader1);
+        readers.add(reader2);
+        readers.add(reader3);
+
+        // Создаем репозитории книг и читателей
+        BookRepository bookRepository = new BookRepository(books);
+        ReaderRepository readerRepository = new ReaderRepository(readers);
+        BookByReaderRepository booksByReaders = new BookByReaderRepository(new MyLinkedList<>());
+
+        // Создаем сервис библиотеки и передаем ему репозитории
+        LiberyService libraryService = new LiberyService(bookRepository, readerRepository, booksByReaders);
+
+        libraryService.getAllBooks(); // Получить список всех книг
+        libraryService.getAllReaders(); // Получить список всех читателей
+        libraryService.readedBooks(); // Получить список книг, которые взяты
+        libraryService.freeBooks(); // Получить список всех свободных книг
+
+
+        libraryService.takeBook(book1,reader1);
+        libraryService.readedBooks(); // Получить список книг, которые взяты
+        libraryService.takeBook(book1,reader2);
+
+        MyLinkedList<Book> booksByReader = libraryService.getBooksByReader(reader1);
+
+        System.out.println("Список книг, взятых читателем " + reader1.getReaderName() + ":");
+        for (int i = 0; i < booksByReader.size(); i++) {
+            Book readedBook = booksByReader.get(i);
+            System.out.println(readedBook);
+        }
+
+        libraryService.checkBookStatus(book1);
+        libraryService.checkBookStatus(book2);
+
 
     }
 }

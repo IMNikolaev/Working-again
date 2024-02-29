@@ -19,20 +19,20 @@ public class BookRepository {
         for (int i = 0; i < books.size(); i++) {
             if (books.get(i).isBookStatus())
             {
-                System.out.println(books.get(i));
+                reservedBooks.add(books.get(i));
             }
         }
-        return null;
+        return reservedBooks;
     }
     public MyLinkedList<Book> findfreeBooks() {
         MyLinkedList<Book> freeBooks = new MyLinkedList<>();
         for (int i = 0; i < books.size(); i++) {
             if (!books.get(i).isBookStatus())
             {
-                System.out.println(books.get(i));
+                freeBooks.add(books.get(i));
             }
         }
-        return null;
+        return freeBooks;
     }
 
     public Book findById(Integer bookId){
@@ -45,12 +45,12 @@ public class BookRepository {
         return null;
     }
 
-    public Book findByTitle(String title){
-
-        // TODO ДОПИСАТЬ!!!!
+    public Book findByTitle(String title) {
+        String lowercaseTitle = title.toLowerCase();
         for (int i = 0; i < books.size(); i++) {
             Book currentBook = books.get(i);
-            if (currentBook.getBookTitle().equals(title)) {
+            String lowercaseBookTitle = currentBook.getBookTitle().toLowerCase();
+            if (lowercaseBookTitle.contains(lowercaseTitle)) {
                 return currentBook;
             }
         }

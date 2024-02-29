@@ -12,6 +12,9 @@ public class BookByReaderRepository {
         this.booksByReaders = booksByReaders;
     }
 
+    public MyLinkedList<BookByReader> getBooksByReaders() {
+        return booksByReaders;
+    }
 
     //БЕЗ ПРОВЕРОК
     public void takeBook (Book book, Reader reader){
@@ -30,6 +33,17 @@ public class BookByReaderRepository {
                 break;
             }
         }
+    }
+
+    public MyLinkedList<BookByReader> getBooksByOtherReaders(Book book) {
+        MyLinkedList<BookByReader> booksTakenByOthers = new MyLinkedList<>();
+        for (int i = 0; i < booksByReaders.size(); i++) {
+            BookByReader bookByReader = booksByReaders.get(i);
+            if (!bookByReader.getBook().equals(book)) {
+                booksTakenByOthers.add(bookByReader);
+            }
+        }
+        return booksTakenByOthers;
     }
 
 
