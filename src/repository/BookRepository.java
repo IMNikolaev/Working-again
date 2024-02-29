@@ -3,6 +3,9 @@ package repository;
 import model.Book;
 import util.MyLinkedList;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class BookRepository {
     private final MyLinkedList<Book> books;
 
@@ -55,5 +58,33 @@ public class BookRepository {
             }
         }
         return null;
+    }
+
+    public MyLinkedList<Book> sortBooks (){
+        MyLinkedList<Book> sorterBooks = findAll();
+        MyLinkedList<Book> sortedBooks = new MyLinkedList<>();
+        String[] booksArray = new String[sorterBooks.size()];
+        if (!sorterBooks.isEmpty() && sorterBooks.size()!=0) {
+            for (int i = 0; i < sorterBooks.size(); i++) {
+                booksArray[i] = sorterBooks.get(i).getBookTitle();
+            }
+            Arrays.sort(booksArray, Comparator.naturalOrder());
+
+            for (int i = 0; i < booksArray.length; i++) {
+                String bookTitle = booksArray[i];
+                for (int j = 0; j < sorterBooks.size(); j++) {
+                    Book book = sorterBooks.get(j);
+                    if (book.getBookTitle().equals(bookTitle)) {
+                        sortedBooks.add(book);
+                        break;
+                    }
+                }
+            }
+            return sortedBooks;
+        }
+        else {
+            System.out.println("Чет не то");
+            return null;
+        }
     }
 }

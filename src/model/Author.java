@@ -3,11 +3,10 @@ package model;
 public class Author {
 
     private String name;
-    private String lastName;
 
-    public Author(String name, String lastName) {
+
+    public Author(String name) {
         this.name = name;
-        this.lastName = lastName;
     }
 
     public String getName() {
@@ -18,11 +17,4 @@ public class Author {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
     }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-}

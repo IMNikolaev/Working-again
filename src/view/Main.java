@@ -1,13 +1,17 @@
 package view;
 
+import model.Author;
 import model.Book;
 import model.BookByReader;
 import model.Reader;
+import repository.AuthorRepository;
 import repository.BookRepository;
 import repository.BookByReaderRepository;
 import repository.ReaderRepository;
 import service.LiberyService;
+import util.MyArrayList;
 import util.MyLinkedList;
+import util.MyList;
 
 public class Main {
 
@@ -98,7 +102,11 @@ public class Main {
         System.out.println("Поиск по строке или подстроке");
         System.out.println(bookRepository.findByTitle("Война"));*/
 
-        MyLinkedList<Book> books = new MyLinkedList<>();
+
+        // ТЕСТ 2
+
+
+       /* MyLinkedList<Book> books = new MyLinkedList<>();
         MyLinkedList<Reader> readers = new MyLinkedList<>();
 
         // Создаем несколько книг
@@ -121,7 +129,7 @@ public class Main {
         readers.add(reader2);
         readers.add(reader3);
 
-        // Создаем репозитории книг и читателей
+        // Создаем репозитории книг и читателей КОСТЫЛЬ!!!!
         BookRepository bookRepository = new BookRepository(books);
         ReaderRepository readerRepository = new ReaderRepository(readers);
         BookByReaderRepository booksByReaders = new BookByReaderRepository(new MyLinkedList<>());
@@ -149,6 +157,23 @@ public class Main {
 
         libraryService.checkBookStatus(book1);
         libraryService.checkBookStatus(book2);
+
+        libraryService.findAllSortedByTitle();
+
+        libraryService.findByTitle("война");*/
+
+        // TEST 3
+
+        MyLinkedList<Book> books = new MyLinkedList<>();
+        MyLinkedList<Reader> readers = new MyLinkedList<>();
+        MyLinkedList<Author> authors = new MyLinkedList<>();
+        BookRepository bookRepository = new BookRepository(books);
+        AuthorRepository authorRepository = new AuthorRepository(authors);
+        ReaderRepository readerRepository = new ReaderRepository(readers);
+        BookByReaderRepository booksByReaders = new BookByReaderRepository(new MyLinkedList<>());
+        LiberyService libraryService = new LiberyService(bookRepository, readerRepository, booksByReaders);
+
+
 
 
     }

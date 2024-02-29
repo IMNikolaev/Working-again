@@ -1,8 +1,10 @@
 package service;
 
+import model.Author;
 import model.Book;
 import model.BookByReader;
 import model.Reader;
+import repository.AuthorRepository;
 import repository.BookByReaderRepository;
 import repository.BookRepository;
 import repository.ReaderRepository;
@@ -13,11 +15,17 @@ public class LiberyService {
     private BookRepository bookRepository;
     private ReaderRepository readerRepository;
     private BookByReaderRepository bookByReaderRepository;
+    private AuthorRepository authorRepository;
 
     public LiberyService(BookRepository bookRepository, ReaderRepository readerRepository,BookByReaderRepository booksByReaders) {
         this.bookRepository = bookRepository;
         this.readerRepository = readerRepository;
         this.bookByReaderRepository = booksByReaders;
+    }
+
+    public void addBook (String title){
+        Book book = new Book(title);
+        bookRepository.add(book);
     }
 
     public void getAllBooks() {
@@ -74,5 +82,25 @@ public class LiberyService {
         }
         else {System.out.println("Книга " + book.getBookTitle() + " свободна");}
     }
+
+    public void findAllSortedByTitle(){
+        System.out.println("Отсортированный по названию список книг");
+        System.out.println(bookRepository.sortBooks());
+    }
+    public void findByTitle(String bookTitle){
+        System.out.println(bookRepository.findByTitle(bookTitle));
+    }
+    public void addAuthor(String name) {
+        // Проверяем, существует ли автор с таким именем
+        if (!authorRepository.existsByName(name)) {
+            // Если не существует, добавляем нового автора
+            Author newAuthor = new Author(name);
+            authorRepository.add(newAuthor);
+            System.out.println("Добавлен новый автор: " + name);
+        } else {
+            System.out.println("Автор с именем " + name + " уже существует.");
+        }
+    }
 }
+
 
