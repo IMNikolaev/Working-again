@@ -5,11 +5,14 @@ import model.BookByReader;
 import model.Reader;
 import repository.BookRepository;
 import repository.BookByReaderRepository;
+import repository.ReaderRepository;
+import service.LiberyService;
 import util.MyLinkedList;
 
 public class Main {
+
     public static void main(String[] args) {
-        MyLinkedList<Book> books = new MyLinkedList<>();
+/*        MyLinkedList<Book> books = new MyLinkedList<>();
         MyLinkedList<Reader> readers = new MyLinkedList<>();
         MyLinkedList<BookByReader> bookByReader = new MyLinkedList<>();
 
@@ -29,6 +32,7 @@ public class Main {
 
 
         BookRepository bookRepository = new BookRepository(books);
+        ReaderRepository readerRepository = new ReaderRepository(readers);
 
         System.out.println("Список книг:");
         for (int i = 0; i < books.size(); i++) {
@@ -54,10 +58,35 @@ public class Main {
         booksByReaders.takeBook(book,reader);
         booksByReaders.takeBook(book1,reader1);
 
-        System.out.println(booksByReaders);
+*/
+        MyLinkedList<Book> books = new MyLinkedList<>();
+        MyLinkedList<Reader> readers = new MyLinkedList<>();
+        MyLinkedList<BookByReader> bookByReader = new MyLinkedList<>();
+        Book book = new Book("Горе от ума");
+        Book book1 = new Book( "Преступление и наказание");
 
-        booksByReaders.returnBook(book,reader);
-        System.out.println(booksByReaders);
+        books.add(book);
+        books.add(book1);
+        BookRepository bookRepository = new BookRepository(books);
+
+        Reader reader = new Reader("Vasya");
+        Reader reader1 = new Reader("Petya");
+
+        readers.add(reader);
+        readers.add(reader1);
+
+        ReaderRepository readerRepository = new ReaderRepository(readers);
+
+        BookByReaderRepository booksByReaders = new BookByReaderRepository(new MyLinkedList<>());
+
+        LiberyService liberyService= new LiberyService(bookRepository,readerRepository,booksByReaders);
+
+        System.out.println(liberyService.getAllBooks());
+        System.out.println(liberyService.getAllReaders());
+        liberyService.takeBook(book,reader);
+        liberyService.takeBook(book1,reader1);
+        liberyService.readedBooks();
+        liberyService.freeBooks();
 
     }
 }

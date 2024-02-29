@@ -12,14 +12,26 @@ public class BookByReaderRepository {
         this.booksByReaders = booksByReaders;
     }
 
+
     //БЕЗ ПРОВЕРОК
     public void takeBook (Book book, Reader reader){
+        BookByReader bookByReader = new BookByReader(book, reader);
+        // Добавляем запись в список booksByReaders
+        booksByReaders.add(bookByReader);
+        book.setBookStatus(true);
     }
 
-
-    //БЕЗ ПРОВЕРОК
     public void returnBook (Book book, Reader reader){
+        for (int i = 0; i < booksByReaders.size(); i++) {
+            BookByReader bookByReader = booksByReaders.get(i);
+            if (bookByReader.getBook().equals(book) && bookByReader.getReader().equals(reader)) {
+                booksByReaders.remove(bookByReader);
+                book.setBookStatus(false);
+                break;
+            }
+        }
     }
+
 
     @Override
     public String toString() {

@@ -1,6 +1,5 @@
 package repository;
 
-import model.Book;
 import model.Reader;
 import util.MyLinkedList;
 
@@ -14,4 +13,7 @@ public class ReaderRepository {
     }
     public void add(Reader newReader) {readers.add(newReader);}
 
+    public MyLinkedList<Reader> findAll() {
+        return readers;
+    }
 }

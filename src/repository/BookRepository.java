@@ -14,6 +14,27 @@ public class BookRepository {
 
     public MyLinkedList<Book> findAll() {return books;}
 
+    public MyLinkedList<Book> findReservedBooks(){
+        MyLinkedList<Book> reservedBooks = new MyLinkedList<>();
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).isBookStatus())
+            {
+                System.out.println(books.get(i));
+            }
+        }
+        return null;
+    }
+    public MyLinkedList<Book> findfreeBooks() {
+        MyLinkedList<Book> freeBooks = new MyLinkedList<>();
+        for (int i = 0; i < books.size(); i++) {
+            if (!books.get(i).isBookStatus())
+            {
+                System.out.println(books.get(i));
+            }
+        }
+        return null;
+    }
+
     public Book findById(Integer bookId){
         for (int i = 0; i < books.size(); i++) {
             Book currentBook = books.get(i);
