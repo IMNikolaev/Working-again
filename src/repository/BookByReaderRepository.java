@@ -12,18 +12,36 @@ public class BookByReaderRepository {
         this.booksByReaders = booksByReaders;
     }
 
-    public MyLinkedList<BookByReader> getBooksByReaders() {
-        return booksByReaders;
-    }
+    //БЕЗ ПРОВЕРОК
+/*    public void takeBook (Book book, Reader reader) {
+        // Ищем запись о взятой книге у данного читателя
+        for (BookByReader bookByReader : booksByReaders) {
+            if (bookByReader.getBook().equals(book) && bookByReader.getReader().equals(reader)) {
+                // Удаляем запись о взятии книги
+                booksByReaders.remove(bookByReader);
+                // Устанавливаем статус книги как доступную
+                book.setBookStatus(false);
+                break; // Выходим из цикла после удаления записи
+            }
+
+        }
+    }*/
+        public void takeBook (Book book, Reader reader){
+            BookByReader bookByReader = new BookByReader(book, reader);
+            booksByReaders.add(bookByReader);
+            book.setBookStatus(true);
+        }
 
     //БЕЗ ПРОВЕРОК
-    public void takeBook (Book book, Reader reader){
+/*
+    public void returnBook (Book book, Reader reader){
         BookByReader bookByReader = new BookByReader(book, reader);
         // Добавляем запись в список booksByReaders
         booksByReaders.add(bookByReader);
+        // Устанавливаем статус книги как взятую
         book.setBookStatus(true);
     }
-
+*/
     public void returnBook (Book book, Reader reader){
         for (int i = 0; i < booksByReaders.size(); i++) {
             BookByReader bookByReader = booksByReaders.get(i);
@@ -35,17 +53,16 @@ public class BookByReaderRepository {
         }
     }
 
-    public MyLinkedList<BookByReader> getBooksByOtherReaders(Book book) {
-        MyLinkedList<BookByReader> booksTakenByOthers = new MyLinkedList<>();
+    public MyLinkedList<Book> booksHaveReader (Reader reader){
+        MyLinkedList<Book> returnBooksHaveReader= new MyLinkedList<>();
         for (int i = 0; i < booksByReaders.size(); i++) {
             BookByReader bookByReader = booksByReaders.get(i);
-            if (!bookByReader.getBook().equals(book)) {
-                booksTakenByOthers.add(bookByReader);
+            if (bookByReader.getReader().equals(reader)){
+                returnBooksHaveReader.add(bookByReader.getBook());
             }
         }
-        return booksTakenByOthers;
+        return returnBooksHaveReader;
     }
-
 
     @Override
     public String toString() {

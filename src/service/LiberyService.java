@@ -17,6 +17,12 @@ public class LiberyService {
     private BookByReaderRepository bookByReaderRepository;
     private AuthorRepository authorRepository;
 
+
+    public void addNewReader (String name, Integer id){
+        Reader reader = new Reader(name, id);
+        readerRepository.add(reader);
+    }
+
     public LiberyService(BookRepository bookRepository, ReaderRepository readerRepository,BookByReaderRepository booksByReaders) {
         this.bookRepository = bookRepository;
         this.readerRepository = readerRepository;
@@ -37,6 +43,10 @@ public class LiberyService {
         System.out.println("Список всех зарегистрированных читателей");
         System.out.println(readerRepository.findAll());
         }
+    public Book getBookById (Integer id){
+        return bookRepository.findById(id);
+    }
+
 
     public void readedBooks (){
         System.out.println("Список книг, которые взяты:");
@@ -53,35 +63,26 @@ public class LiberyService {
             System.out.println("Книга уже занята!");
             return;
         }
-
         // Если книга доступна, берем ее
         bookByReaderRepository.takeBook(book, reader);
     }
-
-    public MyLinkedList<Book> getBooksByReader(Reader reader){
-        MyLinkedList<Book> booksByReader = new MyLinkedList<>();
-        MyLinkedList<BookByReader> booksByReaders = bookByReaderRepository.getBooksByReaders();
-        for (int i = 0; i < booksByReaders.size(); i++) {
-            BookByReader bookByReader = booksByReaders.get(i);
-            booksByReader.add(bookByReader.getBook());
-        }
-        return booksByReader;
+    public void takeBookById(Integer id, Reader reader){
+        takeBook(bookRepository.findById(id),reader);
     }
 
-    public void checkBookStatus (Book book){
+    public void removeBook(Book book, Reader reader){
         if (book.isBookStatus()){
-            MyLinkedList<Book> booksByReader = new MyLinkedList<>();
-            MyLinkedList<BookByReader> booksByReaders = bookByReaderRepository.getBooksByReaders();
-            for (int i = 0; i < booksByReaders.size(); i++) {
-                BookByReader bookByReader = booksByReaders.get(i);
-                if(bookByReader.getBook().equals(book)){
-                    Reader reader = bookByReader.getReader();
-                    System.out.println("Книга " + book.getBookTitle() + " находится у " + reader.getReaderName());
-                }
-            }
+            bookByReaderRepository.returnBook(book,reader);
         }
-        else {System.out.println("Книга " + book.getBookTitle() + " свободна");}
+        else {
+            System.out.println("Книга и так свободна!");
+        }
     }
+
+    public void removeBookbyId (Integer id, Reader reader){
+        removeBook(bookRepository.findById(id),reader);
+    }
+
 
     public void findAllSortedByTitle(){
         System.out.println("Отсортированный по названию список книг");
@@ -100,6 +101,14 @@ public class LiberyService {
         } else {
             System.out.println("Автор с именем " + name + " уже существует.");
         }
+    }
+
+    public void booksThisReader (Reader reader){
+        System.out.println(bookByReaderRepository.booksHaveReader(reader));
+    }
+
+    public Reader takeReaderById(int id) {
+        return readerRepository.findById(id);
     }
 }
 
