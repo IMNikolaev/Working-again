@@ -143,7 +143,7 @@ public class Menu {
                 break;
             case 2:// МЕТОД - Добавление книги
                 // TODO нужно еще добавить автора
-                liberyService.addBook(scanner.nextLine());
+                liberyService.addBook(scanner.nextLine(),scanner.nextLine());
                 break;
             case 3:// МЕТОД - Список всех книг
                 liberyService.getAllBooks();

@@ -159,9 +159,7 @@ public class Main {
 
         MyLinkedList<Book> books = new MyLinkedList<>();
         MyLinkedList<Reader> readers = new MyLinkedList<>();
-        MyLinkedList<Author> authors = new MyLinkedList<>();
         BookRepository bookRepository = new BookRepository(books);
-        AuthorRepository authorRepository = new AuthorRepository(authors);
         ReaderRepository readerRepository = new ReaderRepository(readers);
         MyLinkedList<User> users = new MyLinkedList<>();
         UserRepository userRepository = new UserRepository(users);
@@ -169,10 +167,10 @@ public class Main {
         LiberyService libraryService = new LiberyService(bookRepository, readerRepository, booksByReaders);
         UserService userService = new UserService(userRepository, libraryService);
 
-        libraryService.addBook("Book1");
-        libraryService.addBook("Book2");
-        libraryService.addBook("Book3");
-        libraryService.addBook("Book4");
+        libraryService.addBook("Book1", "adsd");
+        libraryService.addBook("Book2", "addsadsd");
+        libraryService.addBook("Book3", "adsd");
+        libraryService.addBook("Book4", "addsadsd");
 
 
 

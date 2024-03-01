@@ -1,21 +1,17 @@
 package service;
 
-import model.Author;
 import model.Book;
-import model.BookByReader;
 import model.Reader;
-import repository.AuthorRepository;
 import repository.BookByReaderRepository;
 import repository.BookRepository;
 import repository.ReaderRepository;
-import util.MyLinkedList;
 
 public class LiberyService {
 
     private BookRepository bookRepository;
     private ReaderRepository readerRepository;
     private BookByReaderRepository bookByReaderRepository;
-    private AuthorRepository authorRepository;
+
 
 
     public void addNewReader (String name, Integer id){
@@ -29,8 +25,8 @@ public class LiberyService {
         this.bookByReaderRepository = booksByReaders;
     }
 
-    public void addBook (String title){
-        Book book = new Book(title);
+    public void addBook (String title, String author){
+        Book book = new Book(title, author);
         bookRepository.add(book);
     }
 
@@ -86,22 +82,16 @@ public class LiberyService {
 
     public void findAllSortedByTitle(){
         System.out.println("Отсортированный по названию список книг");
-        System.out.println(bookRepository.sortBooks());
+        System.out.println(bookRepository.sortBooksByTitle());
+    }
+    public void findAllSortedByAuthor(){
+        System.out.println("Отсортированный по автору список книг");
+        System.out.println(bookRepository.sortBooksByAuthor());
     }
     public void findByTitle(String bookTitle){
         System.out.println(bookRepository.findByTitle(bookTitle));
     }
-    public void addAuthor(String name) {
-        // Проверяем, существует ли автор с таким именем
-        if (!authorRepository.existsByName(name)) {
-            // Если не существует, добавляем нового автора
-            Author newAuthor = new Author(name);
-            authorRepository.add(newAuthor);
-            System.out.println("Добавлен новый автор: " + name);
-        } else {
-            System.out.println("Автор с именем " + name + " уже существует.");
-        }
-    }
+
 
     public void booksThisReader (Reader reader){
         System.out.println(bookByReaderRepository.booksHaveReader(reader));
@@ -109,6 +99,17 @@ public class LiberyService {
 
     public Reader takeReaderById(int id) {
         return readerRepository.findById(id);
+    }
+
+    public Book renameBookbyTitle (Integer id, String newTitle){
+        Book renamedBook = bookRepository.findById(id);
+        renamedBook.setBookTitle(newTitle);
+        return renamedBook;
+    }
+    public Book renameBookbyAuthor (Integer id, String newAuthor){
+        Book renamedBook = bookRepository.findById(id);
+        renamedBook.setBookAuthor(newAuthor);
+        return renamedBook;
     }
 }
 

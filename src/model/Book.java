@@ -6,15 +6,15 @@ public class Book {
 
     private Integer bookId;
     private String bookTitle;
-    private Author bookAuthor;
+    private String bookAuthor;
     private boolean bookStatus;
 
 
-    public Book(String bookTitle) {
+    public Book(String bookTitle, String bookAuthor) {
         this.bookId = nextId++;
         this.bookTitle = bookTitle;
         this.bookStatus = false;
-        this.bookAuthor = null;
+        this.bookAuthor = bookAuthor;
     }
 
     public boolean isBookStatus() {
@@ -41,20 +41,20 @@ public class Book {
         this.bookTitle = bookTitle;
     }
 
-    public Author getBookAuthor() {
-        return bookAuthor;
-    }
+    public String getBookAuthor() {return bookAuthor;}
 
-    public void setBookAuthor(Author bookAuthor) {
+
+
+    public void setBookAuthor(String bookAuthor) {
         this.bookAuthor = bookAuthor;
     }
 
     @Override
     public String toString() {
-        return "Book{" +
+        return "Book{"+ "\n" +
                 "bookId=" + bookId +
                 ", bookTitle='" + bookTitle + '\'' +
                 ", bookAuthor=" + bookAuthor +
-                '}';
+                '}' + "\n";
     }
 }
