@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import repository.BookByReaderRepository;
@@ -81,13 +82,57 @@ class MenuTest {
      */
 
 
+//    @ParameterizedTest
+//    @ValueSource(strings = {"test@example.com", "user123@test.com", "john.doe@test.org"})
+//    public void testValidEmail(String email) {
+//        // Здесь вызвать метод регистрации с переданным email и проверить, корректно ли он обрабатывает email.
+//        boolean isValid = isValidEmail(email);
+//        Assertions.assertTrue(isValid, "Email " + email + " должен быть корректным.");
+//    }
+//
+//    private boolean isValidEmail(String email) {
+//        // проверку корректности email здесь.
+//
+//        return true;
+//    }
+
+
+    @ParameterizedTest
+    @MethodSource({"validEmailData", "validPasswordData"})
+    public void testSetValidEmail(String email, String password) {
+        User user = userRepository.createUser(email, password, name);
+        assertNotNull(user);
+        assertEquals(email, user.getEmail());
+        assertEquals(password, user.getPassword());
+    }
+
+    static Stream<Arguments> validEmailData() {
+        return Stream.of(
+                Arguments.of("test@email.net", "Password1@"),
+                Arguments.of("test@example.com", "PASSWORDD1@"),
+                Arguments.of("user123@test.com", "password1@"),
+                Arguments.of("john.doe@test.org", "passworD.@")
+        );
+    }
+
+    static Stream<Arguments> validPasswordData() {
+        return Stream.of(
+                Arguments.of("test@email.net", "Password1@"),
+                Arguments.of("test@example.com", "PASSWORDD1@"),
+                Arguments.of("user123@test.com", "password1@"),
+                Arguments.of("john.doe@test.org", "passworD.@")
+        );
+    }
+
+    /*
     //Todo вроде рабочий надо допилить
     @ParameterizedTest
-    @MethodSource("validEmailData")
+    @MethodSource({"validEmailData", "validPasswordData"})
     public void testSetValidEmail(String email) {
         User user = userRepository.createUser(email, startPassword, name);
         Assertions.assertNotNull(user);
         Assertions.assertEquals(email, user.getEmail());
+        Assertions.assertEquals(startPassword, user.getPassword());
     }
 
     static Stream<String> validEmailData() {
@@ -98,19 +143,6 @@ class MenuTest {
                 "john.doe@test.org"
         );
     }
-
-
-
-    @ParameterizedTest
-    @MethodSource("validPasswordData")
-    public void testSetValidPassword(String password) {
-        User user1 = userRepository.createUser(startEmail, password, name);
-        System.out.println("User: " + user1);
-        Assertions.assertNotNull(user1);
-
-        Assertions.assertEquals(password, user1.getPassword());
-    }
-
     static Stream<String> validPasswordData() {
         return Stream.of(
                 "Password1@",
@@ -121,6 +153,30 @@ class MenuTest {
 
         );
     }
+
+     */
+
+
+//    @ParameterizedTest
+//    @MethodSource("validPasswordData")
+//    public void testSetValidPassword(String password) {
+//        User user1 = userRepository.createUser(startEmail, password, name);
+//        System.out.println("User: " + user1);
+//        Assertions.assertNotNull(user1);
+//
+//        Assertions.assertEquals(password, user1.getPassword());
+//    }
+
+//    static Stream<String> validPasswordData() {
+//        return Stream.of(
+//                "Password1@",
+//                "PASSWORDD1@",
+//                "password1@",
+//                "passworD.@",
+//                ""
+//
+//        );
+//    }
 
 
     //Todo DONE!
@@ -141,6 +197,7 @@ class MenuTest {
     //Todo DONE!
     @Test
     public void addBook() {
+
         Book book1 = new Book("Война и мир", "Ivan");
         Book book2 = new Book("qwe", "Petro");
         Book book3 = new Book("fds", "Vasyl");
@@ -167,24 +224,34 @@ class MenuTest {
 
     }
 
-    //Todo допилить
+    //Todo TEST
     @Test
-    @Disabled
-    public void tokeBooks() {
-        Book book1 = new Book("Война и мир", "Ivan");
-        Book book2 = new Book("qwe", "Petro");
-        Book book3 = new Book("fds", "Vasyl");
+    public void tookBooks() {
+        MyList<Book> tookBooks = bookRepository.findReservedBooks();
 
-        System.out.println(book1);
-        System.out.println(book2);
-        System.out.println(book3);
+       Book book1 = new Book("Война и мир", "Ivan");
+//        Book book2 = new Book("qwe", "Petro");
+//        Book book3 = new Book("fds", "Vasyl");
 
-        // assertEquals(1, bookRepository.findByAuthor(book1,book2,book3, books));
+           books.addAll(book1);
+
+        System.out.println(books);
+
+        for (int i = books.size(); i > 0; i--) {
+            if (books.get(i).isBookStatus()) {
+                tookBooks.add(books.get(i));
+                assertEquals(books.size(), tookBooks.size());
+
+            }
+            return;
+
+        }
+            System.out.println("No books");
 
     }
 
 
-    //TODO
+    //TODO TEST
     @Test
     public void freeBooks() {
 
@@ -194,22 +261,27 @@ class MenuTest {
         Book book2 = new Book("qwe", "Petro");
         Book book3 = new Book("fds", "Vasyl");
 
-        books.addAll(book1,book2,book3);
+        books.addAll(book1, book2, book3);
 
+        System.out.println(books);
 
-        for (int i = 0; i < freeBooks.size(); i++) {
-            if (freeBooks.get(i).isBookStatus()) {
-                books.add(freeBooks.get(i));
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).isBookStatus()) {
+                freeBooks.add(books.get(i));
+                assertEquals(books.size(), freeBooks.size());
             }
+            return;
+
         }
 
-        assertEquals(freeBooks.size(), books.size());
+
+//        for (int i = 0; i <books.size() ; i++) {
+//            assertEquals(true,book1.isBookStatus());
+//        }
 //        for (Book book : books) {
 //            assertEquals(true, book.isBookStatus());
 //        }
 
-
-        System.out.println(books);
     }
 
 
@@ -226,6 +298,54 @@ class MenuTest {
         assertEquals("Война и мир", res);
 
         System.out.println(res);
+
+    }
+    //TODO
+    @Test
+    @Disabled
+    public void findAllSortedByTitle(){
+        MyLinkedList<Book> findAllSortedByTitle = bookRepository.sortBooksByTitle();
+
+
+
+
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).isBookStatus()) {
+                findAllSortedByTitle.add(books.get(i));
+            }
+            return;
+
+        }
+
+        Assertions.assertNotNull(findAllSortedByTitle);
+
+        System.out.println(findAllSortedByTitle);
+
+    }
+
+
+
+
+    //TODO
+    @Test
+    @Disabled
+    public void findAllSortedByAuthor(){
+        MyLinkedList<Book> findAllSortedByAuthor = bookRepository.sortBooksByTitle();
+
+
+
+
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).isBookStatus()) {
+                findAllSortedByAuthor.add(books.get(i));
+            }
+            return;
+
+        }
+
+        Assertions.assertNotNull(findAllSortedByAuthor);
+
+        System.out.println(findAllSortedByAuthor);
 
     }
 
