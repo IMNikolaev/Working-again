@@ -145,4 +145,18 @@ public class UserRepository {
         }
         return null;
     }
+
+    public void blockUserById(Integer blockedUserId) {
+        User user = null;
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getId()==blockedUserId){
+                user = users.get(i);
+                break;
+            }
+            
+        }
+        if (user!=null){
+            user.setRole(Role.BLOCKED);
+        }
+    }
 }

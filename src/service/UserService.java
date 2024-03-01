@@ -42,4 +42,12 @@ public class UserService {
         return userRepository.getActiveUser();
     }
 
+
+    public void activeUserFalse() {
+        userRepository.setActiveUser(null);
+    }
+
+    public void blockUser(Integer blockedUserId) {
+        userRepository.blockUserById(blockedUserId);
+    }
 }

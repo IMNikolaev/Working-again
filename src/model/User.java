@@ -43,6 +43,11 @@ public class User {
         this.role = role;
     }
 
+
+    public Role getRole() {
+        return role;
+    }
+
     public String getEmail() {
         return email;
     }

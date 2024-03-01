@@ -109,7 +109,10 @@ public class BookRepository {
         MyLinkedList<Book> sorterBooks = findAll();
         MyLinkedList<Book> sortedBooks = new MyLinkedList<>();
         String[] booksArray = new String[sorterBooks.size()];
-        if (!sorterBooks.isEmpty() && sorterBooks.size()!=0) {
+        Book[] bookArray1 = sorterBooks.toArray();
+        Arrays.sort(bookArray1, Comparator.comparing(Book::getBookAuthor));
+        System.out.println(Arrays.toString(bookArray1));
+       /* if (!sorterBooks.isEmpty() && sorterBooks.size()!=0) {
             for (int i = 0; i < sorterBooks.size(); i++) {
                 booksArray[i] = sorterBooks.get(i).getBookAuthor();
             }
@@ -130,6 +133,9 @@ public class BookRepository {
         else {
             System.out.println("Чет не то");
             return null;
-        }
+        }*/
+        //TODO ПЕРЕДЕЛАТЬ!!!!
+        return null;
     }
+
 }

@@ -92,6 +92,10 @@ public class LiberyService {
         System.out.println(bookRepository.findByTitle(bookTitle));
     }
 
+    public void findByAuthor(String bookAuthor){
+        System.out.println(bookRepository.findByAuthor(bookAuthor));
+    }
+
 
     public void booksThisReader (Reader reader){
         System.out.println(bookByReaderRepository.booksHaveReader(reader));
@@ -110,6 +114,10 @@ public class LiberyService {
         Book renamedBook = bookRepository.findById(id);
         renamedBook.setBookAuthor(newAuthor);
         return renamedBook;
+    }
+
+    public void whoReadThisBook(int numberBook) {
+        System.out.println(bookByReaderRepository.whoReadBookById(numberBook));
     }
 }
 

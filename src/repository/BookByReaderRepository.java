@@ -42,6 +42,9 @@ public class BookByReaderRepository {
         book.setBookStatus(true);
     }
 */
+
+
+
     public void returnBook (Book book, Reader reader){
         for (int i = 0; i < booksByReaders.size(); i++) {
             BookByReader bookByReader = booksByReaders.get(i);
@@ -69,5 +72,15 @@ public class BookByReaderRepository {
         return "BooksByReaders{" +
                 "booksByReaders=" + booksByReaders +
                 '}';
+    }
+
+    public Reader whoReadBookById(int numberBook) {
+        for (int i = 0; i < booksByReaders.size(); i++) {
+            BookByReader bookByReader = booksByReaders.get(i);
+            if (bookByReader.getBook().getBookId().equals(numberBook)){
+                return bookByReader.getReader();
+            }
+        }
+        return null;
     }
 }

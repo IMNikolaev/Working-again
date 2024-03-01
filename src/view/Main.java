@@ -7,6 +7,15 @@ import service.UserService;
 import util.MyLinkedList;
 
 public class Main {
+    public static final String RESET_COLOR = "\u001B[0m";
+    public static final String COLOR_BLACK = "\u001B[30m";
+    public static final String COLOR_RED = "\u001B[31m";
+    public static final String COLOR_GREEN = "\u001B[32m";
+    public static final String COLOR_YELLOW = "\u001B[33m";
+    public static final String COLOR_BLUE = "\u001B[34m";
+    public static final String COLOR_PURPLE = "\u001B[35m";
+    public static final String COLOR_CYAN = "\u001B[36m";
+    public static final String COLOR_WHITE = "\u001B[37m";
 
     public static void main(String[] args) {
 /*        MyLinkedList<Book> books = new MyLinkedList<>();
@@ -167,12 +176,46 @@ public class Main {
         LiberyService libraryService = new LiberyService(bookRepository, readerRepository, booksByReaders);
         UserService userService = new UserService(userRepository, libraryService);
 
-        libraryService.addBook("Book1", "adsd");
-        libraryService.addBook("Book2", "addsadsd");
-        libraryService.addBook("Book3", "adsd");
-        libraryService.addBook("Book4", "addsadsd");
-
-
+        libraryService.addBook("Антон Чехов", "Дядя Ваня");
+        libraryService.addBook("Иван Тургенев", "Отцы и дети");
+        libraryService.addBook("Лев Толстой", "Детство");
+        libraryService.addBook("Федор Достоевский", "Преступление и наказание");
+        libraryService.addBook("Александр Пушкин", "Евгений Онегин");
+        libraryService.addBook("Антон Чехов", "Вишневый сад");
+        libraryService.addBook("Иван Тургенев", "Дворянское гнездо");
+        libraryService.addBook("Лев Толстой", "Анна Каренина");
+        libraryService.addBook("Федор Достоевский", "Идиот");
+        libraryService.addBook("Александр Пушкин", "Пиковая дама");
+        libraryService.addBook("Антон Чехов", "Толстый и тонкий");
+        libraryService.addBook("Иван Тургенев", "Отцы и дети");
+        libraryService.addBook("Лев Толстой", "Хаджи-Мурат");
+        libraryService.addBook("Федор Достоевский", "Братья Карамазовы");
+        libraryService.addBook("Антон Чехов", "Дама с собачкой");
+        libraryService.addBook("Иван Тургенев", "Дворянское гнездо");
+        libraryService.addBook("Александр Пушкин", "Пиковая дама");
+        libraryService.addBook("Лев Толстой", "Кавказский пленник");
+        libraryService.addBook("Федор Достоевский", "Бесы");
+        libraryService.addBook("Антон Чехов", "Три сестры");
+        libraryService.addBook("Лев Толстой", "Война и мир");
+        libraryService.addBook("Федор Достоевский", "Преступление и наказание");
+        libraryService.addBook("Антон Чехов", "Толстый и тонкий");
+        libraryService.addBook("Лев Толстой", "Анна Каренина");
+        libraryService.addBook("Федор Достоевский", "Идиот");
+        libraryService.addBook("Антон Чехов", "Вишневый сад");
+        libraryService.addBook("Иван Тургенев", "Отцы и дети");
+        libraryService.addBook("Александр Пушкин", "Евгений Онегин");
+        libraryService.addBook("Лев Толстой", "Воскресение");
+        libraryService.addBook("Федор Достоевский", "Братья Карамазовы");
+        libraryService.addBook("Антон Чехов", "Дама с собачкой");
+        libraryService.addBook("Иван Тургенев", "Дворянское гнездо");
+        libraryService.addBook("Александр Пушкин", "Пиковая дама");
+        libraryService.addBook("Лев Толстой", "Хаджи-Мурат");
+        libraryService.addBook("Федор Достоевский", "Бесы");
+        libraryService.addBook("Антон Чехов", "Три сестры");
+        libraryService.addBook("Иван Тургенев", "Накануне");
+        libraryService.addBook("Александр Пушкин", "Медный всадник");
+        libraryService.addBook("Лев Толстой", "Казаки");
+        libraryService.addBook("Федор Достоевский", "Игрок");
 
         Menu menu = new Menu(libraryService, userService);
         menu.run();
