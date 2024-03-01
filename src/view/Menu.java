@@ -19,22 +19,33 @@ public class Menu {
         this.userService = userService;
     }
 
+    String boldTextStart = "\033[1m";
+    String boldTextEnd = "\033[0m";
+    public static final String RESET_COLOR = "\u001B[0m";
+    public static final String COLOR_BLACK = "\u001B[30m";
+    public static final String COLOR_RED = "\u001B[31m";
+    public static final String COLOR_GREEN = "\u001B[32m";
+    public static final String COLOR_YELLOW = "\u001B[33m";
+    public static final String COLOR_BLUE = "\u001B[34m";
+    public static final String COLOR_PURPLE = "\u001B[35m";
+    public static final String COLOR_CYAN = "\u001B[36m";
+    public static final String COLOR_WHITE = "\u001B[37m";
 
-
-    // ===========ГЛАВНОЕ МЕНЮ===============================================
+    // ================ГЛАВНОЕ МЕНЮ====================
     public void run() {
         showMenu();
     }
 
     private void showMenu() { // ГЛАВНОЕ МЕНЮ
         while (true) {
-            System.out.println("ПРИВЕТСТВУЕМ В БИЛИОТЕКЕ");
-            System.out.println("1 -> Авторизация");
-            System.out.println("2 -> Регистрация");
-            System.out.println("0 -> ВЫХОД");
+            System.out.println(COLOR_BLUE + "=============ПРИВЕТСТВУЕМ В БИЛИОТЕКЕ=============" + RESET_COLOR);
+            System.out.println(COLOR_YELLOW + "1" + RESET_COLOR + "->" + boldTextStart + "Авторизация" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "2" + RESET_COLOR + "->" + boldTextStart + "Регистрация" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "0" + RESET_COLOR + " ->" + boldTextStart + "ВЫХОД" + boldTextEnd);
+            System.out.println(COLOR_RED + "Вход для АДМИНА" + RESET_COLOR);
 
             //запрашиваем выбор пользователя
-            System.out.println("\nСделайте выбор пункта:");
+            System.out.println(COLOR_YELLOW + "\nСделайте выбор пункта:" + RESET_COLOR);
             int input = scanner.nextInt();
             scanner.nextLine();
 
@@ -45,41 +56,40 @@ public class Menu {
 
 
     private void handleUserMenuChoice(int input) {
+        System.out.println("=========Введите ваши данные для входа в систему!===========");
         switch (input) {
             case 1:
-                System.out.println("Введите ваш email:");
+                System.out.println(COLOR_GREEN + "Введите ваш email:" + RESET_COLOR);
                 String email = scanner.nextLine();
 
-                System.out.println("Введи Ваш пароль:");
+                System.out.println(COLOR_GREEN + "Введи Ваш пароль:" + RESET_COLOR);
                 String password = scanner.nextLine();
 
 
-                if (userService.userAuthorize(email,password) != null){
-                    System.out.println("Вы успешно вошли в систему!");
-                    if (userService.activeUser()!= null){
+                if (userService.userAuthorize(email, password) != null) {
+                    System.out.println(COLOR_GREEN + "Вы успешно вошли в систему!" + RESET_COLOR);
+                    if (userService.activeUser() != null) {
                         registMenu(userService.activeUser());
                     }
-                }
-                else {
+                } else {
                     liberyService.getAllReaders();
-                    System.out.println("Неверный ввод!");
+                    System.out.println(COLOR_RED + "Неверный ввод!" + RESET_COLOR);
                     showMenu();
                 }
 
                 break;
 // РЕГИСТРАЦИЯ В СИСТЕМЕ
             case 2:
-                //Регистрация
-                System.out.println("Введите ваш email:");
+                System.out.println(COLOR_GREEN + "Введите ваш email:" + RESET_COLOR);
                 String emailNew = scanner.nextLine();
 
-                System.out.println("Введи Ваш пароль:");
+                System.out.println(COLOR_GREEN + "Введи Ваш пароль:" + RESET_COLOR);
                 String passwordNew = scanner.nextLine();
 
-                System.out.println("Введи Ваше Имя:");
+                System.out.println(COLOR_GREEN + "Введи Ваше Имя:" + RESET_COLOR);
                 String nameNew = scanner.nextLine();
 
-                userService.createUser(emailNew,passwordNew,nameNew);
+                userService.createUser(emailNew, passwordNew, nameNew);
                 break;
 
 
@@ -94,37 +104,40 @@ public class Menu {
                 registMenu();// ПЕРЕХОД НА МЕНЮ ЗАРЕГЕСТРИРОВАННОГО ПОЛЬЗОВАТЕЛЯ
                 waitRead();
                 break;*/
-
+            case 99:
+                adminMenu();
             default:
-                System.out.println("\nНе верный ввод");
+                System.out.println(COLOR_RED + "\nНе верный ввод попробуйте еще раз" + RESET_COLOR);
                 waitRead();
                 break;
         }
 
     }
+
     /*
-*/
-    //=====================МЕНЮ АДМИНИСТРАТОРА=============================
-    public void adminMenu() { // МЕНЮ АДМИНИСТРАТОРА
+     */
+    //===============МЕНЮ АДМИНИСТРАТОРА====================
+    public void adminMenu() {
+        System.out.println(COLOR_BLUE + "============МЕНЮ АДМИНИСТРАТОРА============" + RESET_COLOR);
         while (true) {
-            System.out.println("1 -> Список всех пользователей");
-            System.out.println("2 -> Добавление книги");
-            System.out.println("3 -> Список всех книг");
-            System.out.println("4 -> Список всех свободных книг");
-            System.out.println("5 -> Посмотреть у кого находится книга");
-            System.out.println("6 -> Список книг, которые сейчас у пользователя");
-            System.out.println("7 -> Получить список книг, которые взяты");
-            System.out.println("8 -> Редактирование информации о книге");
-            System.out.println("0 -> ВЫХОД");
+            System.out.println(COLOR_YELLOW + "1" + RESET_COLOR + "->" + boldTextStart + "Список всех пользователей" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "2" + RESET_COLOR + "->" + boldTextStart + "Добавление книги" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "3" + RESET_COLOR + "->" + boldTextStart + "Список всех книг" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "4" + RESET_COLOR + "->" + boldTextStart + "Список всех свободных книг" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "5" + RESET_COLOR + "->" + boldTextStart + "Посмотреть у кого находится книга" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "6" + RESET_COLOR + "->" + boldTextStart + "Список книг, которые сейчас у пользователя" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "7" + RESET_COLOR + "->" + boldTextStart + "Получить список книг, которые взяты" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "8" + RESET_COLOR + "->" + boldTextStart + "Редактирование информации о книге" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "0" + RESET_COLOR + "->" + boldTextStart + "ВЫХОД" + boldTextEnd);
 
             //запрашиваем выбор пользователя
-            System.out.println("\nСделайте выбор пункта:");
+            System.out.println(COLOR_YELLOW + "\nСделайте выбор пункта:" + RESET_COLOR);
             int input = scanner.nextInt();
             scanner.nextLine();
 
             //проверка не выбран ли пункт выход
             if (input == 0) {
-                System.out.println("До свидания");
+                System.out.println(COLOR_GREEN + "До свидания! Ждем вас снова!" + RESET_COLOR);
                 System.exit(0); // завершение работа приложения
                 break;
             }
@@ -136,6 +149,7 @@ public class Menu {
     }
 
     private void adminMenuOpen(int input) {
+        System.out.println("==========================================");
         switch (input) {
             case 1:// МЕТОД - Список всех пользователей
                 liberyService.getAllReaders();
@@ -143,7 +157,7 @@ public class Menu {
                 break;
             case 2:// МЕТОД - Добавление книги
                 // TODO нужно еще добавить автора
-                liberyService.addBook(scanner.nextLine(),scanner.nextLine());
+                liberyService.addBook(scanner.nextLine(), scanner.nextLine());
                 break;
             case 3:// МЕТОД - Список всех книг
                 liberyService.getAllBooks();
@@ -169,7 +183,7 @@ public class Menu {
                 break;
 
             default:
-                System.out.println("Ваш выбор не корректен");
+                System.out.println(COLOR_RED + "Ваш выбор не корректен попробуйте еще раз?" + RESET_COLOR);
                 waitRead();
 
         }
@@ -178,25 +192,27 @@ public class Menu {
 
 ///===============МЕНЮ ПОЛЬЗОВАТЕЛЯ ПОСЛЕ РЕГИСТРАЦИИ======================
 
-    public void registMenu(User user) { // МЕНЮ ПОЛЬЗОВАТЕЛЯ
+    public void registMenu(User user) {
+        System.out.println(COLOR_BLUE + "============МЕНЮ ПОЛЬЗОВАТЕЛЯ============" + RESET_COLOR);
         while (true) {
-            System.out.println("1 -> Список всех книг");
-            System.out.println("2 -> Поиск книги по названию");
-            System.out.println("3 -> Взятие книги из библиотеки по ID");
-            System.out.println("4 -> Возврат книги в библиотеку");
-            System.out.println("5 -> Список всех свободных книг");
-            System.out.println("6 -> Поиск книги по автору (полное имя или часть имени)");
-            System.out.println("7 -> Список всех книг, отсортированный по автору");
-            System.out.println("8 -> Список всех книг, отсортированный по названию книги");
-            System.out.println("0 -> ВЫХОД");
-            System.out.println("\nСделайте выбор пункта:");
+            System.out.println(COLOR_YELLOW + "1" + RESET_COLOR + "->" + boldTextStart + " Список всех книг" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "2" + RESET_COLOR + "->" + boldTextStart + " Поиск книги по названию" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "3" + RESET_COLOR + "->" + boldTextStart + " Взятие книги из библиотеки по ID" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "4" + RESET_COLOR + "->" + boldTextStart + " Возврат книги в библиотеку" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "5" + RESET_COLOR + "->" + boldTextStart + " Список всех свободных книг" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "6" + RESET_COLOR + "->" + boldTextStart + " Поиск книги по автору (полное имя или часть имени)" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "7" + RESET_COLOR + "->" + boldTextStart + " Список всех книг, отсортированный по автору" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "8" + RESET_COLOR + "->" + boldTextStart + " Список всех книг, отсортированный по названию книги" + boldTextEnd);
+            System.out.println(COLOR_YELLOW + "0" + RESET_COLOR + "->" + boldTextStart + " ВЫХОД" + boldTextEnd);
+
+            System.out.println(COLOR_YELLOW + "\nСделайте выбор пункта:" + RESET_COLOR);
 
             int input = scanner.nextInt();
             scanner.nextLine();
 
             //проверка не выбран ли пункт выход
             if (input == 0) {
-                System.out.println("До свидания");
+                System.out.println(COLOR_GREEN + "До свидания! Ждем вас снова!" + RESET_COLOR);
                 System.exit(0); // завершение работа приложения
                 // break;
             }
@@ -208,6 +224,7 @@ public class Menu {
     }
 
     private void regMenu(int input, Reader reader) {
+        System.out.println("==========================================");
         switch (input) {
             case 1:// МЕТОД - Список всех книг+
                 liberyService.getAllBooks();
@@ -220,18 +237,18 @@ public class Menu {
                 break;
             case 3:// МЕТОД - Взятие книги из библиотеки
                 liberyService.freeBooks();
-                System.out.println("Выберете книгу по номеру: ");
+                System.out.println(COLOR_GREEN + " === Выберете книгу по номеру: " + RESET_COLOR);
                 int numberBookToAdd = scanner.nextInt();
                 liberyService.takeBookById(numberBookToAdd, reader);
-                System.out.print("Вы взяли книгу " + liberyService.getBookById(numberBookToAdd));
+                System.out.print(COLOR_GREEN + "Вы взяли книгу " + RESET_COLOR + liberyService.getBookById(numberBookToAdd));
                 // TODO СПРОСИТЬ!!!
                 waitRead();
                 break;
             case 4:// МЕТОД - Возврат книги в библиотеку
                 // TODO ДОПИСАТЬ
-                System.out.println("Список книг которые вы взяли");
+                System.out.println(COLOR_GREEN + " === Список книг которые вы взяли" + RESET_COLOR);
                 liberyService.booksThisReader(reader);
-                int numberBookToRemove = scanner.nextInt();;
+                int numberBookToRemove = scanner.nextInt();
                 liberyService.removeBookbyId(numberBookToRemove, reader);
                 waitRead();
                 break;
@@ -253,14 +270,14 @@ public class Menu {
                 break;
 
             default:
-                System.out.println("Ваш выбор не корректен");
+                System.out.println(COLOR_RED + "Ваш выбор не корректен, попробуйте еще раз!" + RESET_COLOR);
                 waitRead();
 
         }
     }
 
     private void waitRead() {
-        System.out.println("\nДля продолжения нажмите Enter ...");
+        System.out.println("\nДля продолжения нажмите " + COLOR_RED + "Enter ..." + RESET_COLOR);
         scanner.nextLine();
     }
 }
