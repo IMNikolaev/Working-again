@@ -53,6 +53,7 @@ public class Menu {
                 System.out.println("До свидания");
                 System.exit(0); // завершение работа приложения
             }
+            handleUserMenuChoice(input);
         }
     }
 
