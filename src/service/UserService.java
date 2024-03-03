@@ -1,10 +1,8 @@
 package service;
 
-import model.Reader;
 import model.User;
 import repository.UserRepository;
 
-import java.io.FilterOutputStream;
 
 public class UserService {
     private final UserRepository userRepository;
@@ -25,7 +23,6 @@ public class UserService {
         if (isExist) {
             return;
         }
-        System.out.println(email + password + name);
         User user = userRepository.createUser(email, password,name);
         if (user!=null) {
             liberyService.addNewReader(name, user.getId());
@@ -43,9 +40,7 @@ public class UserService {
     }
 
 
-    public void activeUserFalse() {
-        userRepository.setActiveUser(null);
-    }
+    public void activeUserFalse() {userRepository.setActiveUser(null);}
 
     public void blockUser(Integer blockedUserId) {
         userRepository.blockUserById(blockedUserId);

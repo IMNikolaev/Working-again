@@ -6,6 +6,11 @@ import service.LiberyService;
 import service.UserService;
 import util.MyLinkedList;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Main {
     public static final String RESET_COLOR = "\u001B[0m";
     public static final String COLOR_BLACK = "\u001B[30m";
@@ -175,6 +180,7 @@ public class Main {
         BookByReaderRepository booksByReaders = new BookByReaderRepository(new MyLinkedList<>());
         LiberyService libraryService = new LiberyService(bookRepository, readerRepository, booksByReaders);
         UserService userService = new UserService(userRepository, libraryService);
+/*
 
         libraryService.addBook("Дядя Ваня", "Антон Чехов");
         libraryService.addBook("Отцы и дети", "Иван Тургенев");
@@ -213,8 +219,31 @@ public class Main {
         libraryService.addBook("Медный всадник", "Александр Пушкин");
         libraryService.addBook("Казаки", "Лев Толстой");
         libraryService.addBook("Игрок", "Федор Достоевский");
+*/
+
+        String filePath = "Books.txt";
+        
+        File file = new File(filePath);
+
+        try {
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] bookTitleAndAuthor = line.split("\\|");
+                libraryService.addBook(bookTitleAndAuthor[0], bookTitleAndAuthor[1]);
+            }
+
+            bufferedReader.close();
+            fileReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Menu menu = new Menu(libraryService, userService);
+
+
         menu.run();
     }
 }

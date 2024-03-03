@@ -78,64 +78,17 @@ public class BookRepository {
 
 
 
-    public MyLinkedList<Book> sortBooksByTitle (){
+    public Book[] sortBooksByTitle (){
         MyLinkedList<Book> sorterBooks = findAll();
-        MyLinkedList<Book> sortedBooks = new MyLinkedList<>();
-        String[] booksArray = new String[sorterBooks.size()];
-        if (!sorterBooks.isEmpty() && sorterBooks.size()!=0) {
-            for (int i = 0; i < sorterBooks.size(); i++) {
-                booksArray[i] = sorterBooks.get(i).getBookTitle();
-            }
-            Arrays.sort(booksArray, Comparator.naturalOrder());
-
-            for (int i = 0; i < booksArray.length; i++) {
-                String bookTitle = booksArray[i];
-                for (int j = 0; j < sorterBooks.size(); j++) {
-                    Book book = sorterBooks.get(j);
-                    if (book.getBookTitle().equals(bookTitle)) {
-                        sortedBooks.add(book);
-                        break;
-                    }
-                }
-            }
-            return sortedBooks;
-        }
-        else {
-            System.out.println("Чет не то");
-            return null;
-        }
+        Book[] bookArray1 = sorterBooks.toArray();
+        Arrays.sort(bookArray1, Comparator.comparing(Book::getBookTitle));
+        return bookArray1;
     }
-    public MyLinkedList<Book> sortBooksByAuthor (){
+    public Book[] sortBooksByAuthor (){
         MyLinkedList<Book> sorterBooks = findAll();
-        MyLinkedList<Book> sortedBooks = new MyLinkedList<>();
-        String[] booksArray = new String[sorterBooks.size()];
         Book[] bookArray1 = sorterBooks.toArray();
         Arrays.sort(bookArray1, Comparator.comparing(Book::getBookAuthor));
-        System.out.println(Arrays.toString(bookArray1));
-       /* if (!sorterBooks.isEmpty() && sorterBooks.size()!=0) {
-            for (int i = 0; i < sorterBooks.size(); i++) {
-                booksArray[i] = sorterBooks.get(i).getBookAuthor();
-            }
-            Arrays.sort(booksArray, Comparator.naturalOrder());
-
-            for (int i = 0; i < booksArray.length; i++) {
-                String bookAuthor = booksArray[i];
-                for (int j = 0; j < sorterBooks.size(); j++) {
-                    Book book = sorterBooks.get(j);
-                    if (book.getBookAuthor().equals(bookAuthor)) {
-                        sortedBooks.add(book);
-                        break;
-                    }
-                }
-            }
-            return sortedBooks;
-        }
-        else {
-            System.out.println("Чет не то");
-            return null;
-        }*/
-        //TODO ПЕРЕДЕЛАТЬ!!!!
-        return null;
+        return bookArray1;
     }
 
 }

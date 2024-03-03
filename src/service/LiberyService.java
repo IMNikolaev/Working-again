@@ -6,6 +6,8 @@ import repository.BookByReaderRepository;
 import repository.BookRepository;
 import repository.ReaderRepository;
 
+import java.util.Arrays;
+
 public class LiberyService {
 
     private BookRepository bookRepository;
@@ -82,11 +84,11 @@ public class LiberyService {
 
     public void findAllSortedByTitle(){
         System.out.println("Отсортированный по названию список книг");
-        System.out.println(bookRepository.sortBooksByTitle());
+        System.out.println(Arrays.toString(bookRepository.sortBooksByTitle()));
     }
     public void findAllSortedByAuthor(){
         System.out.println("Отсортированный по автору список книг");
-        System.out.println(bookRepository.sortBooksByAuthor());
+        System.out.println(Arrays.toString(bookRepository.sortBooksByAuthor()));
     }
     public void findByTitle(String bookTitle){
         System.out.println(bookRepository.findByTitle(bookTitle));

@@ -14,6 +14,7 @@ public class User {
     private Reader reader;
 
 
+
     public User(String email, String password, String name) {
         this.name = name;
         this.id = nextId++;

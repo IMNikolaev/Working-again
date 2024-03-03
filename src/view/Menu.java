@@ -68,7 +68,6 @@ public class Menu {
                 System.out.println(COLOR_GREEN + "Введи Ваш пароль:" + RESET_COLOR);
                 String password = scanner.nextLine();
 
-
                 if (userService.userAuthorize(email, password) != null) {
                     System.out.println(COLOR_GREEN + "Вы успешно вошли в систему!" + RESET_COLOR);
                     if (userService.activeUser() != null) {
