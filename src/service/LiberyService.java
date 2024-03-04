@@ -6,6 +6,9 @@ import repository.BookByReaderRepository;
 import repository.BookRepository;
 import repository.ReaderRepository;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 
 public class LiberyService {
@@ -30,6 +33,24 @@ public class LiberyService {
     public void addBook (String title, String author){
         Book book = new Book(title, author);
         bookRepository.add(book);
+        //writeBookToFile(book);
+    }
+
+    private void writeBookToFile(Book book) {
+        String filePath = "Books.txt";
+
+        try {
+            FileWriter fileWriter = new FileWriter(filePath, true); // Устанавливаем параметр true для дополнения файла
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+
+            // Записываем информацию о книге в файл
+            printWriter.println(book.getBookTitle() + "|" + book.getBookAuthor());
+
+            printWriter.close();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void getAllBooks() {
