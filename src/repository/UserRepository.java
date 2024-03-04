@@ -43,6 +43,8 @@ public class UserRepository {
     }
         return null;
     }
+
+
     private boolean isEmailValid(String email) {
         if (email == null || email.isEmpty()){
             return false;
@@ -85,6 +87,7 @@ public class UserRepository {
 
         return true;
     }
+
 
     private boolean isPasswordValid(String password) {
         if (password == null || password.length() < 8) return false;
