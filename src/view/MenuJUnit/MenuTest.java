@@ -20,7 +20,12 @@ import util.MyLinkedList;
 import util.MyList;
 import view.Menu;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.function.BooleanSupplier;
 import java.util.stream.Stream;
 
@@ -28,20 +33,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MenuTest {
 
-    Menu menu;
-    User user;
-    UserRepository userRepository;
-    LiberyService liberyService;
+
 
     MyLinkedList<Book> books = new MyLinkedList<>();
     MyLinkedList<Reader> readers = new MyLinkedList<>();
     BookRepository bookRepository = new BookRepository(books);
     ReaderRepository readerRepository = new ReaderRepository(readers);
     MyLinkedList<User> users = new MyLinkedList<>();
-
+    UserRepository userRepository = new UserRepository(users);
     BookByReaderRepository booksByReaders = new BookByReaderRepository(new MyLinkedList<>());
     LiberyService libraryService = new LiberyService(bookRepository, readerRepository, booksByReaders);
     UserService userService = new UserService(userRepository, libraryService);
+
+
 
     Reader reader;
     String startEmail = "test@test.com";
@@ -51,6 +55,17 @@ class MenuTest {
 
 
 
+
+    @Test
+    void testCreateUser_SuccessfulRegistration() {
+        String email = "test@example.com";
+        String password = "Password1@";
+        String name = "John";
+
+        User user = userRepository.createUser(email, password, name);
+        System.out.println(user);
+        assertNotNull(user);
+    }
 
     //Todo доделать
     @ParameterizedTest
@@ -85,11 +100,8 @@ class MenuTest {
     static Stream<String> validPasswordData() {
         return Stream.of(
                 "Password1@",
-               "PASSWORDD1@",
-
-              "passworD.@",
-                ""
-
+                        "Paswordioom1!",
+                "passworD1213123.@"
        );
     }
 
@@ -197,14 +209,14 @@ class MenuTest {
         libraryService.addBook("Казаки", "Лев Толстой");
         libraryService.addBook("Игрок", "Федор Достоевский");
 
+        libraryService.getAllBooks();
+        Book testBook = bookRepository.findAll().getLast();
+       Reader reader1 = new Reader("Хрен с гори", 100);
+        libraryService.takeBookById(testBook.getBookId(),reader1);
+        System.out.println(libraryService.getBookById(testBook.getBookId()));
+        System.out.println(bookRepository.findReservedBooks().getLast());
 
-
-       Reader reader1 = new Reader("Хрен с гори", 1);
-       libraryService.takeBookById(1,reader1);
-       assertEquals(libraryService.getBookById(1),bookRepository.findReservedBooks().get(0));
-        System.out.println(reader1);
-
-
+        assertEquals(libraryService.getBookById(testBook.getBookId()),bookRepository.findReservedBooks().getLast());
     }
 
 
@@ -271,7 +283,6 @@ class MenuTest {
     }
 
 
-    //Todo DONE!
     @Test
     public void findBookByTitle() {
         libraryService.addBook("Дядя Ваня", "Антон Чехов");
@@ -322,116 +333,66 @@ class MenuTest {
     }
 
 
-    //TODO провереть после Игоря изменение
     @Test
     public void findAllSortedByTitle() {
-        //  MyLinkedList<Book> findAllSortedByTitle = bookRepository.sortBooksByTitle();
-        libraryService.addBook("Дядя Ваня", "Антон Чехов");
-        libraryService.addBook("Отцы и дети", "Иван Тургенев");
-        libraryService.addBook("Детство", "Лев Толстой");
-        libraryService.addBook("Преступление и наказание", "Федор Достоевский");
-        libraryService.addBook("Евгений Онегин", "Александр Пушкин");
-        libraryService.addBook("Вишневый сад", "Антон Чехов");
-        libraryService.addBook("Дворянское гнездо", "Иван Тургенев");
-        libraryService.addBook("Анна Каренина", "Лев Толстой");
-        libraryService.addBook("Идиот", "Федор Достоевский");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Хаджи-Мурат", "Лев Толстой");
-        libraryService.addBook("Братья Карамазовы", "Федор Достоевский");
-        libraryService.addBook("Дама с собачкой", "Антон Чехов");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Кавказский пленник", "Лев Толстой");
-        libraryService.addBook("Бесы", "Федор Достоевский");
-        libraryService.addBook("Три сестры", "Антон Чехов");
-        libraryService.addBook("Война и мир", "Лев Толстой");
-        libraryService.addBook("Преступление и наказание", "Федор Достоевский");
-        libraryService.addBook("Толстый и тонкий", "Антон Чехов");
-        libraryService.addBook("Анна Каренина", "Лев Толстой");
-        libraryService.addBook("Идиот", "Федор Достоевский");
-        libraryService.addBook("Вишневый сад", "Антон Чехов");
-        libraryService.addBook("Отцы и дети", "Иван Тургенев");
-        libraryService.addBook("Евгений Онегин", "Александр Пушкин");
-        libraryService.addBook("Воскресение", "Лев Толстой");
-        libraryService.addBook("Братья Карамазовы", "Федор Достоевский");
-        libraryService.addBook("Дама с собачкой", "Антон Чехов");
-        libraryService.addBook("Дворянское гнездо", "Иван Тургенев");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Хаджи-Мурат", "Лев Толстой");
-        libraryService.addBook("Бесы", "Федор Достоевский");
-        libraryService.addBook("Три сестры", "Антон Чехов");
-        libraryService.addBook("Накануне", "Иван Тургенев");
-        libraryService.addBook("Медный всадник", "Александр Пушкин");
-        libraryService.addBook("Казаки", "Лев Толстой");
-        libraryService.addBook("Игрок", "Федор Достоевский");
+        String filePath = "Books.txt";
 
-        MyLinkedList<Book> bookA = new MyLinkedList<>();
+        File file = new File(filePath);
 
-        for (int i = 0; i < books.size(); i++) {
-            if (books.get(i) != null) {
-                bookA.add(bookRepository.sortBooksByTitle().get(i));
+        try {
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] bookTitleAndAuthor = line.split("\\|");
+                libraryService.addBook(bookTitleAndAuthor[0], bookTitleAndAuthor[1]);
             }
 
-
+            bufferedReader.close();
+            fileReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        Assertions.assertNotNull(bookA);
-        System.out.println(bookA);
+
+        Book[] bookArray1 = bookRepository.sortBooksByTitle();
 
 
+        Assertions.assertNotNull(bookArray1);
+        for (int i = 0; i < bookArray1.length; i++) {
+            System.out.println(bookArray1[i]);
+        }
     }
 
-    //TODO провереть после Игоря изменение
     @Test
     public void findAllSortedByAuthor() {
-        //  MyLinkedList<Book> findAllSortedByTitle = bookRepository.sortBooksByTitle();
-        libraryService.addBook("Дядя Ваня", "Антон Чехов");
-        libraryService.addBook("Отцы и дети", "Иван Тургенев");
-        libraryService.addBook("Детство", "Лев Толстой");
-        libraryService.addBook("Преступление и наказание", "Федор Достоевский");
-        libraryService.addBook("Евгений Онегин", "Александр Пушкин");
-        libraryService.addBook("Вишневый сад", "Антон Чехов");
-        libraryService.addBook("Дворянское гнездо", "Иван Тургенев");
-        libraryService.addBook("Анна Каренина", "Лев Толстой");
-        libraryService.addBook("Идиот", "Федор Достоевский");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Хаджи-Мурат", "Лев Толстой");
-        libraryService.addBook("Братья Карамазовы", "Федор Достоевский");
-        libraryService.addBook("Дама с собачкой", "Антон Чехов");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Кавказский пленник", "Лев Толстой");
-        libraryService.addBook("Бесы", "Федор Достоевский");
-        libraryService.addBook("Три сестры", "Антон Чехов");
-        libraryService.addBook("Война и мир", "Лев Толстой");
-        libraryService.addBook("Преступление и наказание", "Федор Достоевский");
-        libraryService.addBook("Толстый и тонкий", "Антон Чехов");
-        libraryService.addBook("Анна Каренина", "Лев Толстой");
-        libraryService.addBook("Идиот", "Федор Достоевский");
-        libraryService.addBook("Вишневый сад", "Антон Чехов");
-        libraryService.addBook("Отцы и дети", "Иван Тургенев");
-        libraryService.addBook("Евгений Онегин", "Александр Пушкин");
-        libraryService.addBook("Воскресение", "Лев Толстой");
-        libraryService.addBook("Братья Карамазовы", "Федор Достоевский");
-        libraryService.addBook("Дама с собачкой", "Антон Чехов");
-        libraryService.addBook("Дворянское гнездо", "Иван Тургенев");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Хаджи-Мурат", "Лев Толстой");
-        libraryService.addBook("Бесы", "Федор Достоевский");
-        libraryService.addBook("Три сестры", "Антон Чехов");
-        libraryService.addBook("Накануне", "Иван Тургенев");
-        libraryService.addBook("Медный всадник", "Александр Пушкин");
-        libraryService.addBook("Казаки", "Лев Толстой");
-        libraryService.addBook("Игрок", "Федор Достоевский");
+        String filePath = "Books.txt";
 
-        MyLinkedList<Book> bookB = new MyLinkedList<>();
+        File file = new File(filePath);
 
-        for (int i = 0; i < books.size(); i++) {
-            if (books.get(i) != null) {
-                bookB.add(bookRepository.sortBooksByAuthor().get(i));
+        try {
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] bookTitleAndAuthor = line.split("\\|");
+                libraryService.addBook(bookTitleAndAuthor[0], bookTitleAndAuthor[1]);
             }
 
-
+            bufferedReader.close();
+            fileReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        Assertions.assertNotNull(bookB);
-        System.out.println(bookB);
+
+        Book[] bookArray1 = bookRepository.sortBooksByAuthor();
+
+
+        Assertions.assertNotNull(bookArray1);
+        for (int i = 0; i < bookArray1.length; i++) {
+            System.out.println(bookArray1[i]);
+        }
 
 
     }
