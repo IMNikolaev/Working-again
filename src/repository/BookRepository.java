@@ -3,19 +3,48 @@ package repository;
 import model.Book;
 import util.MyLinkedList;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
 
 public class BookRepository {
     private final MyLinkedList<Book> books;
 
-    public BookRepository(MyLinkedList<Book> books) {
-        this.books = books;
+    public BookRepository() {
+        this.books = new MyLinkedList<>();
+        addBooksFromFiles();
     }
 
     public void add(Book newBook) {books.add(newBook);}
 
     public MyLinkedList<Book> findAll() {return books;}
+
+    public void addBooksFromFiles ()
+    {
+        String filePath = "Books.txt";
+
+        File file = new File(filePath);
+
+        try {
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] bookTitleAndAuthor = line.split("\\|");
+                Book newBook = new Book(bookTitleAndAuthor[0], bookTitleAndAuthor[1]);
+                books.add(newBook);
+            }
+
+            bufferedReader.close();
+            fileReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public MyLinkedList<Book> findReservedBooks(){
         MyLinkedList<Book> reservedBooks = new MyLinkedList<>();

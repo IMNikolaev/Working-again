@@ -10,8 +10,8 @@ public class UserRepository {
     private User activeUser;
 
 
-    public UserRepository(MyLinkedList<User> users) {
-        this.users = users;
+    public UserRepository() {
+        this.users = new MyLinkedList<>();
         init();
     }
 

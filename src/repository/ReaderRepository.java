@@ -10,8 +10,8 @@ public class ReaderRepository {
 
     private final MyLinkedList<Reader> readers;
 
-    public ReaderRepository(MyLinkedList<Reader> readers) {
-        this.readers = readers;
+    public ReaderRepository() {
+        this.readers = new MyLinkedList<>();
         init();
     }
 

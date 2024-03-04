@@ -8,8 +8,8 @@ import util.MyLinkedList;
 public class BookByReaderRepository {
     private final MyLinkedList<BookByReader> booksByReaders;
 
-    public BookByReaderRepository(MyLinkedList<BookByReader> booksByReaders) {
-        this.booksByReaders = booksByReaders;
+    public BookByReaderRepository() {
+        this.booksByReaders = new MyLinkedList<>();
     }
 
     //БЕЗ ПРОВЕРОК
@@ -69,9 +69,7 @@ public class BookByReaderRepository {
 
     @Override
     public String toString() {
-        return "BooksByReaders{" +
-                "booksByReaders=" + booksByReaders +
-                '}';
+        return "booksByReaders= " + booksByReaders;
     }
 
     public Reader whoReadBookById(int numberBook) {

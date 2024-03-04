@@ -24,37 +24,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        MyLinkedList<Book> books = new MyLinkedList<>();
-        MyLinkedList<Reader> readers = new MyLinkedList<>();
-        BookRepository bookRepository = new BookRepository(books);
-        ReaderRepository readerRepository = new ReaderRepository(readers);
-        MyLinkedList<User> users = new MyLinkedList<>();
-        UserRepository userRepository = new UserRepository(users);
-        BookByReaderRepository booksByReaders = new BookByReaderRepository(new MyLinkedList<>());
+        BookRepository bookRepository = new BookRepository();
+        ReaderRepository readerRepository = new ReaderRepository();
+        UserRepository userRepository = new UserRepository();
+        BookByReaderRepository booksByReaders = new BookByReaderRepository();
         LiberyService libraryService = new LiberyService(bookRepository, readerRepository, booksByReaders);
         UserService userService = new UserService(userRepository, libraryService);
 
-
-
-        String filePath = "Books.txt";
-        
-        File file = new File(filePath);
-
-        try {
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] bookTitleAndAuthor = line.split("\\|");
-                libraryService.addBook(bookTitleAndAuthor[0], bookTitleAndAuthor[1]);
-            }
-
-            bufferedReader.close();
-            fileReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         Menu menu = new Menu(libraryService, userService);
 

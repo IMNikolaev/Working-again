@@ -35,23 +35,20 @@ class MenuTest {
 
 
 
-    MyLinkedList<Book> books = new MyLinkedList<>();
-    MyLinkedList<Reader> readers = new MyLinkedList<>();
-    BookRepository bookRepository = new BookRepository(books);
-    ReaderRepository readerRepository = new ReaderRepository(readers);
-    MyLinkedList<User> users = new MyLinkedList<>();
-    UserRepository userRepository = new UserRepository(users);
-    BookByReaderRepository booksByReaders = new BookByReaderRepository(new MyLinkedList<>());
+
+
+    BookRepository bookRepository = new BookRepository();
+    ReaderRepository readerRepository = new ReaderRepository();
+    UserRepository userRepository = new UserRepository();
+    BookByReaderRepository booksByReaders = new BookByReaderRepository();
     LiberyService libraryService = new LiberyService(bookRepository, readerRepository, booksByReaders);
     UserService userService = new UserService(userRepository, libraryService);
-
 
 
     Reader reader;
     String startEmail = "test@test.com";
     String startPassword = "Password1@";
     String name = "Test Uer";
-
 
 
 
@@ -125,44 +122,6 @@ class MenuTest {
     //Todo DONE!
     @Test
     public void getAllBooks() {
-        libraryService.addBook("Дядя Ваня", "Антон Чехов");
-        libraryService.addBook("Отцы и дети", "Иван Тургенев");
-        libraryService.addBook("Детство", "Лев Толстой");
-        libraryService.addBook("Преступление и наказание", "Федор Достоевский");
-        libraryService.addBook("Евгений Онегин", "Александр Пушкин");
-        libraryService.addBook("Вишневый сад", "Антон Чехов");
-        libraryService.addBook("Дворянское гнездо", "Иван Тургенев");
-        libraryService.addBook("Анна Каренина", "Лев Толстой");
-        libraryService.addBook("Идиот", "Федор Достоевский");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Хаджи-Мурат", "Лев Толстой");
-        libraryService.addBook("Братья Карамазовы", "Федор Достоевский");
-        libraryService.addBook("Дама с собачкой", "Антон Чехов");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Кавказский пленник", "Лев Толстой");
-        libraryService.addBook("Бесы", "Федор Достоевский");
-        libraryService.addBook("Три сестры", "Антон Чехов");
-        libraryService.addBook("Война и мир", "Лев Толстой");
-        libraryService.addBook("Преступление и наказание", "Федор Достоевский");
-        libraryService.addBook("Толстый и тонкий", "Антон Чехов");
-        libraryService.addBook("Анна Каренина", "Лев Толстой");
-        libraryService.addBook("Идиот", "Федор Достоевский");
-        libraryService.addBook("Вишневый сад", "Антон Чехов");
-        libraryService.addBook("Отцы и дети", "Иван Тургенев");
-        libraryService.addBook("Евгений Онегин", "Александр Пушкин");
-        libraryService.addBook("Воскресение", "Лев Толстой");
-        libraryService.addBook("Братья Карамазовы", "Федор Достоевский");
-        libraryService.addBook("Дама с собачкой", "Антон Чехов");
-        libraryService.addBook("Дворянское гнездо", "Иван Тургенев");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Хаджи-Мурат", "Лев Толстой");
-        libraryService.addBook("Бесы", "Федор Достоевский");
-        libraryService.addBook("Три сестры", "Антон Чехов");
-        libraryService.addBook("Накануне", "Иван Тургенев");
-        libraryService.addBook("Медный всадник", "Александр Пушкин");
-        libraryService.addBook("Казаки", "Лев Толстой");
-        libraryService.addBook("Игрок", "Федор Достоевский");
-
 
         assertNotNull(bookRepository.findAll());
 
@@ -171,43 +130,6 @@ class MenuTest {
 
     @Test
     public void tookBooks() {
-        libraryService.addBook("Дядя Ваня", "Антон Чехов");
-        libraryService.addBook("Отцы и дети", "Иван Тургенев");
-        libraryService.addBook("Детство", "Лев Толстой");
-        libraryService.addBook("Преступление и наказание", "Федор Достоевский");
-        libraryService.addBook("Евгений Онегин", "Александр Пушкин");
-        libraryService.addBook("Вишневый сад", "Антон Чехов");
-        libraryService.addBook("Дворянское гнездо", "Иван Тургенев");
-        libraryService.addBook("Анна Каренина", "Лев Толстой");
-        libraryService.addBook("Идиот", "Федор Достоевский");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Хаджи-Мурат", "Лев Толстой");
-        libraryService.addBook("Братья Карамазовы", "Федор Достоевский");
-        libraryService.addBook("Дама с собачкой", "Антон Чехов");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Кавказский пленник", "Лев Толстой");
-        libraryService.addBook("Бесы", "Федор Достоевский");
-        libraryService.addBook("Три сестры", "Антон Чехов");
-        libraryService.addBook("Война и мир", "Лев Толстой");
-        libraryService.addBook("Преступление и наказание", "Федор Достоевский");
-        libraryService.addBook("Толстый и тонкий", "Антон Чехов");
-        libraryService.addBook("Анна Каренина", "Лев Толстой");
-        libraryService.addBook("Идиот", "Федор Достоевский");
-        libraryService.addBook("Вишневый сад", "Антон Чехов");
-        libraryService.addBook("Отцы и дети", "Иван Тургенев");
-        libraryService.addBook("Евгений Онегин", "Александр Пушкин");
-        libraryService.addBook("Воскресение", "Лев Толстой");
-        libraryService.addBook("Братья Карамазовы", "Федор Достоевский");
-        libraryService.addBook("Дама с собачкой", "Антон Чехов");
-        libraryService.addBook("Дворянское гнездо", "Иван Тургенев");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Хаджи-Мурат", "Лев Толстой");
-        libraryService.addBook("Бесы", "Федор Достоевский");
-        libraryService.addBook("Три сестры", "Антон Чехов");
-        libraryService.addBook("Накануне", "Иван Тургенев");
-        libraryService.addBook("Медный всадник", "Александр Пушкин");
-        libraryService.addBook("Казаки", "Лев Толстой");
-        libraryService.addBook("Игрок", "Федор Достоевский");
 
         libraryService.getAllBooks();
         Book testBook = bookRepository.findAll().getLast();
@@ -223,47 +145,10 @@ class MenuTest {
 
     @Test
     public void freeBooks() {
-        libraryService.addBook("Дядя Ваня", "Антон Чехов");
-        libraryService.addBook("Отцы и дети", "Иван Тургенев");
-        libraryService.addBook("Детство", "Лев Толстой");
-        libraryService.addBook("Преступление и наказание", "Федор Достоевский");
-        libraryService.addBook("Евгений Онегин", "Александр Пушкин");
-        libraryService.addBook("Вишневый сад", "Антон Чехов");
-        libraryService.addBook("Дворянское гнездо", "Иван Тургенев");
-        libraryService.addBook("Анна Каренина", "Лев Толстой");
-        libraryService.addBook("Идиот", "Федор Достоевский");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Хаджи-Мурат", "Лев Толстой");
-        libraryService.addBook("Братья Карамазовы", "Федор Достоевский");
-        libraryService.addBook("Дама с собачкой", "Антон Чехов");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Кавказский пленник", "Лев Толстой");
-        libraryService.addBook("Бесы", "Федор Достоевский");
-        libraryService.addBook("Три сестры", "Антон Чехов");
-        libraryService.addBook("Война и мир", "Лев Толстой");
-        libraryService.addBook("Преступление и наказание", "Федор Достоевский");
-        libraryService.addBook("Толстый и тонкий", "Антон Чехов");
-        libraryService.addBook("Анна Каренина", "Лев Толстой");
-        libraryService.addBook("Идиот", "Федор Достоевский");
-        libraryService.addBook("Вишневый сад", "Антон Чехов");
-        libraryService.addBook("Отцы и дети", "Иван Тургенев");
-        libraryService.addBook("Евгений Онегин", "Александр Пушкин");
-        libraryService.addBook("Воскресение", "Лев Толстой");
-        libraryService.addBook("Братья Карамазовы", "Федор Достоевский");
-        libraryService.addBook("Дама с собачкой", "Антон Чехов");
-        libraryService.addBook("Дворянское гнездо", "Иван Тургенев");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Хаджи-Мурат", "Лев Толстой");
-        libraryService.addBook("Бесы", "Федор Достоевский");
-        libraryService.addBook("Три сестры", "Антон Чехов");
-        libraryService.addBook("Накануне", "Иван Тургенев");
-        libraryService.addBook("Медный всадник", "Александр Пушкин");
-        libraryService.addBook("Казаки", "Лев Толстой");
-        libraryService.addBook("Игрок", "Федор Достоевский");
 
 
         MyLinkedList<Book> bookA = new MyLinkedList<>();
-
+        MyLinkedList <Book> books = bookRepository.findAll();
         for (int i = 0; i < books.size(); i++) {
             if (books.get(i) != null) {
                 bookA.add(bookRepository.findfreeBooks().get(i));
@@ -272,56 +157,12 @@ class MenuTest {
             Assertions.assertNotNull(bookA);
 
 
-//        for (int i = 0; i <books.size() ; i++) {
-//            assertEquals(true,book1.isBookStatus());
-//        }
-//        for (Book book : books) {
-//            assertEquals(true, book.isBookStatus());
-//        }
-
         }
     }
 
 
     @Test
     public void findBookByTitle() {
-        libraryService.addBook("Дядя Ваня", "Антон Чехов");
-        libraryService.addBook("Отцы и дети", "Иван Тургенев");
-        libraryService.addBook("Детство", "Лев Толстой");
-        libraryService.addBook("Преступление и наказание", "Федор Достоевский");
-        libraryService.addBook("Евгений Онегин", "Александр Пушкин");
-        libraryService.addBook("Вишневый сад", "Антон Чехов");
-        libraryService.addBook("Дворянское гнездо", "Иван Тургенев");
-        libraryService.addBook("Анна Каренина", "Лев Толстой");
-        libraryService.addBook("Идиот", "Федор Достоевский");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Хаджи-Мурат", "Лев Толстой");
-        libraryService.addBook("Братья Карамазовы", "Федор Достоевский");
-        libraryService.addBook("Дама с собачкой", "Антон Чехов");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Кавказский пленник", "Лев Толстой");
-        libraryService.addBook("Бесы", "Федор Достоевский");
-        libraryService.addBook("Три сестры", "Антон Чехов");
-        libraryService.addBook("Война и мир", "Лев Толстой");
-        libraryService.addBook("Преступление и наказание", "Федор Достоевский");
-        libraryService.addBook("Толстый и тонкий", "Антон Чехов");
-        libraryService.addBook("Анна Каренина", "Лев Толстой");
-        libraryService.addBook("Идиот", "Федор Достоевский");
-        libraryService.addBook("Вишневый сад", "Антон Чехов");
-        libraryService.addBook("Отцы и дети", "Иван Тургенев");
-        libraryService.addBook("Евгений Онегин", "Александр Пушкин");
-        libraryService.addBook("Воскресение", "Лев Толстой");
-        libraryService.addBook("Братья Карамазовы", "Федор Достоевский");
-        libraryService.addBook("Дама с собачкой", "Антон Чехов");
-        libraryService.addBook("Дворянское гнездо", "Иван Тургенев");
-        libraryService.addBook("Пиковая дама", "Александр Пушкин");
-        libraryService.addBook("Хаджи-Мурат", "Лев Толстой");
-        libraryService.addBook("Бесы", "Федор Достоевский");
-        libraryService.addBook("Три сестры", "Антон Чехов");
-        libraryService.addBook("Накануне", "Иван Тургенев");
-        libraryService.addBook("Медный всадник", "Александр Пушкин");
-        libraryService.addBook("Казаки", "Лев Толстой");
-        libraryService.addBook("Игрок", "Федор Достоевский");
 
         String res = "идиот";
 
@@ -335,26 +176,6 @@ class MenuTest {
 
     @Test
     public void findAllSortedByTitle() {
-        String filePath = "Books.txt";
-
-        File file = new File(filePath);
-
-        try {
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] bookTitleAndAuthor = line.split("\\|");
-                libraryService.addBook(bookTitleAndAuthor[0], bookTitleAndAuthor[1]);
-            }
-
-            bufferedReader.close();
-            fileReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         Book[] bookArray1 = bookRepository.sortBooksByTitle();
 
 
@@ -366,26 +187,6 @@ class MenuTest {
 
     @Test
     public void findAllSortedByAuthor() {
-        String filePath = "Books.txt";
-
-        File file = new File(filePath);
-
-        try {
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] bookTitleAndAuthor = line.split("\\|");
-                libraryService.addBook(bookTitleAndAuthor[0], bookTitleAndAuthor[1]);
-            }
-
-            bufferedReader.close();
-            fileReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         Book[] bookArray1 = bookRepository.sortBooksByAuthor();
 
 
